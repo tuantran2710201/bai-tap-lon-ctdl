@@ -1,5 +1,5 @@
-#include "GiaoVien.h"
-#include "KhoaPhong.h"
+#include "SinhVien.h"
+#include "MonHoc.h"
 #include <stdio.h>
 #include <iostream>
 #include <string>
@@ -9,10 +9,9 @@
 #include <sstream>
 #include <fstream>
 
-
 using namespace std;
 
-void xulymenu(ListGiaoVien &l, ListKP &h);
+void xulymenu(ListSinhVien &l, ListMH &h);
 
 int chonmenu(int yc) // ham chon menu
 {
@@ -25,140 +24,138 @@ int chonmenu(int yc) // ham chon menu
         return chonmenu(yc);
 }
 
-void Menu1(ListGiaoVien &l, ListKP &h) //menu cho lua chon 1
+void Menu1(ListSinhVien &l, ListMH &h) // menu cho lua chon 1
 {
     system("cls"); // menu man hinh
     int n;
-    cout << "1. Nhap thong tin giao vien" << endl;
-    cout << "2. In danh sach giao vien" << endl;
-    cout << "3. Luu danh sach giao vien vao file giaovien.txt" << endl;
+    cout << "1. Nhap thong tin sinh vien" << endl;
+    cout << "2. In danh sach sinh vien" << endl;
+    cout << "3. Luu danh sach sinh vien vao file sinhvien.txt" << endl;
     cout << "4. Nhap thong tin Khoa phong" << endl;
     cout << "5. In danh sach Khoa phong" << endl;
-    cout << "6. Luu danh sach Khoa phong vao file khoaphong.txt" << endl;
+    cout << "6. Luu danh sach Khoa phong vao file monhoc.txt" << endl;
     cout << "0. Quay lai Menu chinh" << endl;
     while (1)
     {
         int chon = chonmenu(6);
         switch (chon)
         {
-        case 1: //Nhap thong tin giao vien
-            cout << "Nhap so luong giao vien can nhap: ";
+        case 1: // Nhap thong tin sinh vien
+            cout << "Nhap thong tin sinh vien can nhap: ";
             cin >> n;
             for (int i = 0; i < n; i++)
-                //nhap thong tin
-                AddHeadGV(l, CreateNodeGiaoVien(nhapGiaoVien()));
+                // nhap thong tin
+                AddHeadSv(l, CreateNodeSinhVien(nhapSinhVien()));
             break;
-        case 2: //In danh sach giao vien
-            inDanhSachGV(l);
+        case 2: // In danh sach sinh vien
+            inDanhSachSv(l);
             break;
-        case 3: //Luu danh sach giao vien vao file quanao.out
-            ghiDanhSachGVVaoFile(l);
+        case 3: // Luu danh sach sinh vien vao file quanao.out
+            ghiDanhSachSvVaoFile(l);
             break;
-        case 4: //Nhap thong tin khoa phong
-            cout << "Nhap so luong Khoa phong: ";
+        case 4: // Nhap thong tin mon hoc
+            cout << "Nhap so luong mon hoc: ";
             cin >> n;
             for (int i = 0; i < n; i++)
-                
-                AddHeadKP(h, CreateNodeKP(nhapThongTinKhoa()));
+
+                AddHeadMH(h, CreateNodeMH(nhapThongTinMonHoc()));
             break;
-        case 5: //In danh sach khoa phong
-            PrintListKP(h);
+        case 5: // In danh sach mon hoc
+            PrintListMH(h);
             break;
-        case 6: //Luu danh sach khoa phong vao file khoaphong.txt
-            printlistKPtofile(h);
+        case 6: // Luu danh sach mon hoc vao file monhoc.txt
+            printlistMHtofile(h);
             break;
-        case 0: //thoat
+        case 0: // thoat
             xulymenu(l, h);
             break;
         }
     }
 }
 
-void Menu2(ListGiaoVien &l, ListKP &h) //menu cho chuc nang 2
+void Menu2(ListSinhVien &l, ListMH &h) // menu cho chuc nang 2
 {
     system("cls");
-    string maGV;
-    string maKP;
-    cout << "1. Them Giao vien moi" << endl;
-    cout << "2. Sua thong tin Giao vien" << endl;
-    cout << "3. Xoa Giao vien" << endl;
-    cout << "4. Them moi Khoa phong" << endl;
-    cout << "5. Sua thong tin khoa phong" << endl;
-    cout << "6. Xoa thong tin khoa phong" << endl;
+    string maSv;
+    string maMH;
+    cout << "1. Them sinh vien moi" << endl;
+    cout << "2. Sua thong tin sinh vien" << endl;
+    cout << "3. Xoa sinh vien" << endl;
+    cout << "4. Them moi mon hoc" << endl;
+    cout << "5. Sua thong tin mon hoc" << endl;
+    cout << "6. Xoa thong tin moc" << endl;
     cout << "0. Quay lai Menu chinh" << endl;
     while (1)
     {
         int chon = chonmenu(6);
         switch (chon)
         {
-        case 1: //them moi giao vien
-            AddHeadGV(l, CreateNodeGiaoVien(nhapGiaoVien()));
+        case 1: // them moi sinh vien
+            AddHeadSv(l, CreateNodeSinhVien(nhapSinhVien()));
             break;
-        case 2: //sua thong tin giao vien
-            cout << "Nhap ma giao vien can sua: ";
-            cin >> maGV; //nhap ma giao vien can sua
-            suaThongTinTheoMaGV(l, maGV);
+        case 2: // sua thong tin sinh vien
+            cout << "Nhap ma sinh vien can sua: ";
+            cin >> maSv; // nhap ma sinh vien can sua
+            suaThongTinTheoMaSv(l, maSv);
             break;
-        case 3: //xoa thong tin giao vien
-            cout << "Nhap ma giao vien can xoa: ";
-            cin >> maGV; //ma giao vien can xoa
-            XoaMaGV(l, maGV);
+        case 3: // xoa thong tin sinh vien
+            cout << "Nhap ma sinh vien can xoa: ";
+            cin >> maSv; // ma sinh vien can xoa
+            XoaMaSv(l, maSv);
             break;
-        case 4: //them khoa phong moi
-            AddHeadKP(h, CreateNodeKP(nhapThongTinKhoa()));
+        case 4: // them khoa phong moi
+            AddHeadMH(h, CreateNodeMH(nhapThongTinMonHoc()));
             break;
-        case 5: //sua thong tin khoa phong
+        case 5: // sua thong tin khoa phong
             cout << "Nhap ma Khoa phong can sua: ";
-            cin >> maKP; //nhap ma khoa phong co san
-            suatheomaKP(h, maKP);
+            cin >> maMH; // nhap ma khoa phong co san
+            suatheomaMH(h, maMH);
             break;
         case 6: // xoa khoa phong
             cout << "Nhap ma Khoa phong can xoa: ";
-            cin >> maKP;
-            RemovemaKP(h, maKP);
+            cin >> maMH;
+            RemovemaMH(h, maMH);
             break;
-        case 0: //thoat menu chinh
+        case 0: // thoat menu chinh
             xulymenu(l, h);
             break;
         }
     }
 }
 
-
-void Menu3(ListGiaoVien &l, ListKP &h) //menu chuc nang 3
+void Menu3(ListSinhVien &l, ListMH &h) // menu chuc nang 3
 {
     system("cls");
-    string maGV;
-    string maKP;
-    cout << "1. Tim Giao vien theo ma giao vien" << endl;
-    cout << "2. Tim khoa phong theo ma khoa phong" << endl;
+    string maSv;
+    string maMH;
+    cout << "1. Tim sinh vien theo ma sinh vien vien" << endl;
+    cout << "2. Tim mon hoc theo ma mon hoc" << endl;
     cout << "0. Quay lai Menu chinh" << endl;
     while (1)
     {
         int chon = chonmenu(2);
         switch (chon)
         {
-        case 1: //tim ma san pham
-            cout << "Nhap ma giao vien can tim: ";
-            cin >> maGV;
-            timKiemMaGV(l, maGV);
+        case 1: // tim ma sinh vien
+            cout << "Nhap ma sinh vien can tim: ";
+            cin >> maSv;
+            timKiemMaSv(l, maSv);
             break;
-        case 2: //tim kiem thong tin Khach hang
-            cout << "Nhap ma khoa phong can tim: ";
-            cin >> maKP;
-            findMaKP(h, maKP);
+        case 2: // tim kiem thong tin mon hoc
+            cout << "Nhap ma mon hoc can tim: ";
+            cin >> maMH;
+            findmaMH(h, maMH);
             break;
-        case 0: //thoat
+        case 0: // thoat
             xulymenu(l, h);
             break;
         }
     }
 }
 
-void Menu() //menu chinh
+void Menu() // menu chinh
 {
-//    system("cls");
-    cout << "Chuong trinh quan ly giao vien" << endl;
+    cout << "Chuong trinh quan ly sinh vien" << endl;
     cout << "-------------------------------------------------" << endl;
     cout << "MENU\n";
     cout << "1. Nhap, In danh sach\n";
@@ -166,101 +163,98 @@ void Menu() //menu chinh
     cout << "3. Tim kiem doi tuong\n";
     cout << "4. Sap xep doi tuong\n";
     cout << "5. Cac yeu cau tim phan tu lon nhat, nho nhat\n";
-//    cout << "6. Cac yeu cau tinh tong, trung binh, dem\n";
-//    cout << "7. Cac yeu cau thong ke theo dieu kien\n";
     cout << "0. Thoat chuong trinh\n";
 }
 
-void Menu4(ListGiaoVien &l, ListKP &h) //menu cho chuc nang 4
+void Menu4(ListSinhVien &l, ListMH &h) // menu cho chuc nang 4
 {
-//    system("cls");
     string maGV;
-    cout << "1. Sap xep giao vien theo luong tang dan" << endl;
-    cout << "2. Sap xep danh sach giao vien theo ten" << endl;
-    cout << "3. Sap xep giao vien theo khoa" << endl;
-    cout << "4. Sap xep khoa phong theo maKhoa" << endl;
-    cout << "5. Sap xep khoa phong theo tenKhoa" << endl;
+    cout << "1. Sap xep sinh vien theo diem tang dan" << endl;
+    cout << "2. Sap xep danh sach sinh vien theo ten" << endl;
+    cout << "3. Sap xep sinh vien theo mon hoc" << endl;
+    cout << "4. Sap xep mon hoc  theo maMonHoc" << endl;
+    cout << "5. Sap xep tenMonhoc theo tenMonHoc" << endl;
     cout << "0. Quay lai Menu chinh" << endl;
     while (1)
     {
         int chon = chonmenu(5);
         switch (chon)
         {
-        case 1: //sap xep giao vien theo luong tang dan
-            sapXepGiaoVienTheoLuong(l);
-            inDanhSachGV(l);
+        case 1: // sap xep sinh vien theo luong tang dan
+            sapXepSinhVienTheoDiem(l);
+            inDanhSachSv(l);
             break;
-        case 2: //sap xep danh sach giao vien theo ten
-            sapXepGVTheoTen(l);
-            inDanhSachGV(l);
+        case 2: // sap xep danh sach sinh vien theo ten
+            sapXepSinhVienTheoTen(l);
+            inDanhSachSv(l);
             break;
-        case 3: //sap xep giao vien theo khoa
-            sapXepGVTheoKhoa(l);
-            inDanhSachGV(l);
+        case 3: // sap xep sinh vien theo khoa
+            sapXepSinhVienTheoMaSv(l);
+            inDanhSachSv(l);
             break;
-        case 4: //sap xep khoa phong theo maKhoa
-            sapxepKPTheoMaKhoa(h);
-            PrintListKP(h);
-            break;
-        case 5: //sap xep khoa phong theo tenKhoa
-            sapxepKPTheoTenKhoa(h);
-            PrintListKP(h);
-            break;
-        case 0: //thoat
+        // case 4: //sap xep mon hoc theo ma mon hoc
+        //     sapXepSinhVienTheoMaMonHoc(h);
+        //     PrintListMH(h);
+        //     break;
+        // case 5: //sap xep khoa phong theo tenKhoa
+        //     sapxepKPTheoTenKhoa(h);
+        //     PrintListKP(h);
+        //     break;
+        case 0: // thoat
             xulymenu(l, h);
             break;
         }
     }
 }
 
-void Menu5(ListGiaoVien &l, ListKP &h) //tim kiem thong tin
+void Menu5(ListSinhVien &l, ListMH &h) // tim kiem thong tin
 {
     system("cls");
     string maSP;
-    cout << "1. Tim giao vien co luong cao nhat" << endl;
-    cout << "2. Tim giao vien co luong thap nhat" << endl;
-    cout << "3. Tim giao vien it tuoi nhat" << endl;
-    cout << "4. Tim giao vien lon tuoi nhat" << endl;
-    cout << "5. Tim giao vien ky hop dong som nhat" << endl;
-    cout << "6. Tim giao vien ky hop dong muon nhat" << endl;
+    cout << "1. Tim sinh vien co diem cao nhat" << endl;
+    cout << "2. Tim sinh vien co diem thap nhat" << endl;
+    cout << "3. Tim sinh vien it tuoi nhat" << endl;
+    cout << "4. Tim sinh vien lon tuoi nhat" << endl;
+    cout << "5. Tim sinh vien vao hoc som nhat" << endl;
+    cout << "6. Tim sinh vien vao hoc muon nhat" << endl;
     cout << "0. Quay lai Menu chinh" << endl;
     while (1)
     {
         int chon = chonmenu(6);
         switch (chon)
         {
-        case 1: //tim giao vien co luong cao nhat
-            timGVLuongCaoNhat(l);
+        case 1: // tim sinh vien co diem cao nhat
+            timSvDiemCaoNhat(l);
             break;
-        case 2: //tim giao vien co luong
-            timGVLuongThapNhat(l);
+        case 2: // tim sinh vien co diem thap nhat
+            timSvDiemThapNhat(l);
             break;
-        case 3: //tim giao vien it tuoi nhat
-            timGVTreNhat(l);
+        case 3: // tim sinh vien it tuoi nhat
+            timSvTreNhat(l);
             break;
-        case 4: //tim giao vien lon tuoi nhat
-            timGVLonNhat(l);
+        case 4: // tim sinh vien lon tuoi nhat
+            timSvLonNhat(l);
             break;
-        case 5: //tim giao ky HD som nhat
-            timGVHDSomNhat(l);
+        case 5: // tim sinh vien vao hoc som nhat
+            timSVNHSomNhat(l);
             break;
-        case 6: //tim giao vien ky HD muon nhat
-            timGVHDMuonNhat(l);
+        case 6: // tim sinh vien vao hoc muon nhat
+            timSVNHMuonNhat(l);
             break;
-        case 0: //thoat
+        case 0: // thoat
             xulymenu(l, h);
             break;
         }
     }
 }
 
-void xulymenu(ListGiaoVien &l, ListKP &h) //
+void xulymenu(ListSinhVien &l, ListMH &h) //
 {
-//    int n;
-//    string id, name;
-//    float gpa;
-//    string maSP;
-    Menu(); //hien thi chuc nang menu
+    //    int n;
+    //    string id, name;
+    //    float gpa;
+    //    string maSP;
+    Menu(); // hien thi chuc nang menu
     int chon = chonmenu(7);
     switch (chon)
     {
@@ -279,12 +273,12 @@ void xulymenu(ListGiaoVien &l, ListKP &h) //
     case 5:
         Menu5(l, h);
         break;
-//    case 6:
-//        Menu6(l, h);
-//        break;
-//    case 7:
-//        Menu7(l, h);
-//        break;
+        //    case 6:
+        //        Menu6(l, h);
+        //        break;
+        //    case 7:
+        //        Menu7(l, h);
+        //        break;
     case 0:
         exit(1);
         break;
@@ -293,8 +287,8 @@ void xulymenu(ListGiaoVien &l, ListKP &h) //
 
 int main()
 {
-    ListGiaoVien l;
-    ListKP h;
+    ListSinhVien l;
+    ListMH h;
     while (1)
     {
         xulymenu(l, h);
